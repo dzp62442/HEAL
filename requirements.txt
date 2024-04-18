@@ -1,6 +1,6 @@
 cmake
 easydict~=1.9
-numpy
+numpy==1.19
 numba
 opencv-python-headless~=4.5.1.48
 scipy

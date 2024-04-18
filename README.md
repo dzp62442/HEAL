@@ -1,3 +1,31 @@
+## 1 安装
+
+### 1.1 基本安装
+
+```bash
+conda create -n heal python=3.8
+conda activate heal
+pip install torch==1.10.1+cu113 torchvision==0.11.2+cu113 torchaudio==0.10.1 -f https://download.pytorch.org/whl/cu113/torch_stable.html
+pip install -r requirements.txt  # 指定numpy版本，不能超过1.20
+python setup.py develop  # It's OK if EasyInstallDeprecationWarning shows up.
+```
+
+### 1.2 其他
+```bash
+pip install spconv-cu113
+python opencood/utils/setup.py build_ext --inplace
+pip install git+https://github.com/klintan/pypcd.git
+```
+
+### 1.3 Dependencies for FPV-RCNN (optional)
+```bash
+python opencood/pcdet_utils/setup.py build_ext --inplace
+```
+
+
+
+------
+
 # HEAL (HEterogeneous ALliance)
 
 [ICLR2024] HEAL: An Extensible Framework for Open Heterogeneous Collaborative Perception

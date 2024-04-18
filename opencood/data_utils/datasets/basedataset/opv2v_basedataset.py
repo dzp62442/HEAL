@@ -12,6 +12,7 @@ from torch.utils.data import Dataset
 from PIL import Image
 import json
 import random
+from loguru import logger
 import opencood.utils.pcd_utils as pcd_utils
 from opencood.data_utils.augmentor.data_augmentor import DataAugmentor
 from opencood.hypes_yaml.yaml_utils import load_yaml
@@ -90,6 +91,7 @@ class OPV2VBaseDataset(Dataset):
             self.scenario_database.update({i: OrderedDict()})
 
             # at least 1 cav should show up
+            # CAV: Connected and Automated Vehicle
             if self.train:
                 cav_list = [x for x in os.listdir(scenario_folder)
                             if os.path.isdir(
@@ -121,7 +123,7 @@ class OPV2VBaseDataset(Dataset):
             # loop over all CAV data
             for (j, cav_id) in enumerate(cav_list):
                 if j > self.max_cav - 1:
-                    print('too many cavs reinitialize')
+                    print(f'too many cavs reinitialize of {scenario_folder}')
                     break
                 self.scenario_database[i][cav_id] = OrderedDict()
 
