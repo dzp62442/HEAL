@@ -5,6 +5,7 @@
 import argparse
 import os
 import statistics
+import setproctitle
 
 import torch
 from torch.utils.data import DataLoader, Subset
@@ -186,4 +187,5 @@ def main():
         os.system(cmd)
 
 if __name__ == '__main__':
+    setproctitle.setproctitle("dongzhipeng")
     main()

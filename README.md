@@ -11,20 +11,53 @@ python setup.py develop  # It's OK if EasyInstallDeprecationWarning shows up.
 ```
 
 ### 1.2 其他
+
 ```bash
 pip install spconv-cu113
 python opencood/utils/setup.py build_ext --inplace
 pip install git+https://github.com/klintan/pypcd.git
+mkdir opencood/logs
+cp -r opencood/modality_assign opencood/logs/heter_modality_assign
 ```
 
 ### 1.3 Dependencies for FPV-RCNN (optional)
+
 ```bash
 python opencood/pcdet_utils/setup.py build_ext --inplace
 ```
 
+## 2 基本训练测试
+
+### 2.1 训练
+
+**单卡训练：**
+
+```python
+CUDA_VISIBLE_DEVICES=0 python opencood/tools/train.py -y ${CONFIG_FILE} [--model_dir ${CHECKPOINT_FOLDER}]
+```
+
+- `-y` or `hypes_yaml` : 训练配置文件路径，如 `opencood/hypes_yaml/opv2v/LiDAROnly/lidar_fcooper.yaml`
+- `--model_dir` (可选) : checkpoints 路径，用于微调或继续训练。当给出 `model_dir` 时，训练器将丢弃 `hypes_yaml` 并加载检查点文件夹中的 `config.yaml`。在这种情况下，${CONFIG_FILE} 可以是 `None`
 
 
-------
+**多卡分布式训练：**
+
+```python
+CUDA_VISIBLE_DEVICES=0,1 python -m torch.distributed.launch  --nproc_per_node=2 --use_env opencood/tools/train_ddp.py -y ${CONFIG_FILE} [--model_dir ${CHECKPOINT_FOLDER}]
+```
+
+- `--nproc_per_node` : 使用的显卡数量
+
+### 2.2 测试
+
+```python
+python opencood/tools/inference.py --model_dir ${CHECKPOINT_FOLDER} [--fusion_method intermediate]
+```
+- `--model_dir` : checkpoints 路径
+- `--save_vis_interval` : 保存可视化结果的间隔，最小为 1
+
+
+---
 
 # HEAL (HEterogeneous ALliance)
 

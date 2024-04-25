@@ -76,7 +76,9 @@ class OPV2VBaseDataset(Dataset):
                                    for x in os.listdir(root_dir) if
                                    os.path.isdir(os.path.join(root_dir, x))])
         
-        self.scenario_folders = scenario_folders
+        # 剔除 2021_09_09_13_20_58 场景，只包含三个相机数据
+        scenario_folders_new = [x for x in scenario_folders if '2021_09_09_13_20_58' not in x]
+        self.scenario_folders = scenario_folders_new
         self.reinitialize()
 
 

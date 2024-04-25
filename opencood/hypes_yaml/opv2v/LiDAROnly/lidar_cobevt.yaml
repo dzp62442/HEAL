@@ -1,7 +1,7 @@
 name: HeterBaseline_opv2v_lidar_cobevt
-root_dir: "dataset/OPV2V/train"
-validate_dir: "dataset/OPV2V/validate"
-test_dir: "dataset/OPV2V/test"
+root_dir: "/home/A_DataSets_01/opv2v/train"
+validate_dir: "/home/A_DataSets_01/opv2v/validate"
+test_dir: "/home/A_DataSets_01/opv2v/test"
 
 yaml_parser: "load_general_params"
 train_params:
